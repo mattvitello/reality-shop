@@ -1,0 +1,26 @@
+<a class="loading-screen" (click)="showShop()" *ngIf="!userHasClicked">
+    <div class="container-fluid vh-100">
+        <div class="loading-wrapper">
+            <video id="loadingVideo" [muted]="true" autoplay loop playsinline>
+                <source src="/assets/reality.mp4" type="video/mp4">
+            </video>
+            <span id="loadingText">CLICK TO ENTER</span>
+        </div>
+    </div>
+</a>
+
+<div class="container-fluid" style="padding-right: 25px;padding-left: 25px;" [hidden]="!userHasClicked">
+    <div class="row shop-items">
+        <div class="col-lg-4 col-sm-6 col-12" *ngFor="let item of shopItems">
+            <div class="item-wrapper">
+                <img src="{{item.src}}" />
+                <div class="item-details">
+                    <p class="item-name">{{item.name}}</p>
+                    <p class="item-price">{{item.price}}</p>
+                </div>
+                <div id="{{item.divId}}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

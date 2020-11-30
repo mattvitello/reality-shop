@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: 'LEDLIGHT';
+    src: url('assets/fonts/ledlight.woff') format('woff'),
+         url('assets/fonts/ledlight.ttf') format('truetype');
+}
+
+
+body {
+    background-color: #dcd5ce;
+    font-family: 'LEDLIGHT', arial;
+    /*background: -webkit-linear-gradient(151deg, #a59d95 25%, #bfb9b2 57%, #bbb3aa 65%, #cac4bd 75%);*/
+}
+
+
+/*shopify overrides*/
+.shopify-buy-frame--product > iframe {
+    height: 50px !important;
+}
+
+.shopify-buy-frame--toggle > iframe {
+    width: 46px !important;
+    height: 49px !important;
+}
+.shopify-buy-frame--toggle {
+    display: none !important;
+    top: 0 !important;
+    padding-top: 55px;
+    padding-right: 25px;
+    position: absolute !important;
+}
+.shopify-buy-frame--toggle.show-cart-btn {
+    display: block !important;
+}
