@@ -1,6 +1,24 @@
+.shop-base {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
 .loading-screen {
     cursor: pointer;
 
+    .panel {
+        display: flex;
+        background-color: #dcd5ce;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: auto;
+        z-index: 1;
+        box-sizing: border-box;
+    }
     .loading-wrapper {
         width: 100%;
         position: absolute;
@@ -27,13 +45,21 @@
         display: block;
         text-align: center;
         margin-top: 35px;
-        color: #261f15;
+        color: #261f15d1;
     }
 }
 
 
 .shop-items {
     margin-top: 65px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    letter-spacing: 0.4px;
+    opacity: 0;
+    transition: all 650ms; 
+    transition-delay: 200ms;
 
     img {
         width: 100%;
@@ -57,14 +83,31 @@
         .item-name {
             float: left;
             margin-left: 5px;
+            text-transform: uppercase;
         }
     
         .item-price {
             float: right;
             margin-right: 5px;
-            font-weight: 400;
-            filter: blur(0.5px);
-            font-family: 'Bungee', sans-serif;
         }
     }
+}
+
+#shopContent {
+    opacity: 0;
+    transition: all 500ms;
+    pointer-events: none;
+    z-index: 999;
+    display: flex;
+    position: absolute;
+    top: 0;
+    background-color: #dcd5ce;
+}
+#shopContent.fade-in {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#shopContent.fade-in .shop-items {
+    opacity: 1;
 }

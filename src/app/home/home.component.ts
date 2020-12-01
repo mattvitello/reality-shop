@@ -38,6 +38,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   showShop() {
     this.userHasClicked = true;
 
+    const siteWrapper = document.getElementById('shop');
+    siteWrapper.classList.remove('shop-base');
+
+    const shopContent = document.getElementById('shopContent');
+    shopContent.classList.add('fade-in');
+
     const cartBtn = document.getElementsByClassName('shopify-buy-frame--toggle')[0];
     cartBtn.classList.add("show-cart-btn");
   }
@@ -57,24 +63,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
             "styles":{
               "product":{"text-align":"center"},
               "button": {
-                "color": "#000",
-                "background": "transparent",
-                "border": "1px solid #000",
-                "font-family": "\"Bungee\", \"Helvetica Neue\", Arial",
-                "filter": "blur(0.5px)",
-                "font-weight": "bold",
-                "font-size": "0.9em",
-                ":hover": {"background-color": "transparent"},
+                "background": "#99c5d4de",
+                "border": "1px solid #777e80de",
+                "font-family": "\"Roboto\", sans-serif",
+                "color":"#000",
+                "font-weight": "600",
+                "font-size": "13px",
+                ":hover": {"background-color": "#a4d1e0"},
                 ":focus": {
-                  "background-color": "transparent",
+                  "background-color": "#99c5d4",
                   "outline": "0 !important"
                 },
-                "padding": "12px 58px",
+                "padding": "10px 50px",
                 "position":"absolute",
                 "top": "0",
                 "right":"0",
                 "width":"70%",
-                "text-transform": "uppercase"
+                "text-transform": "uppercase",
+                "margin-bottom":"0",
+                "margin-top":"0"
                 //"padding":"10px 24px 10px 24px"
               },
               "options":{
@@ -97,8 +104,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
                 }
               },
               "wrapper":{
-                "background-color":"transparent",
-                "border-color":"black",
+                "background-color":"#efefef",
+                "border-color":"#767676",
                 "border-width":"1px",
                 "vertical-align":"center",
                 "cursor":"pointer",
@@ -107,17 +114,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
                 }
               },
               "select":{
-                "color":"black",
-                "font-family": "\"Bungee\", \"Helvetica Neue\", Arial",
-                "font-weight": "bold",
-                "font-size": "0.9em",
+                "font-family": "\"Roboto\", sans-serif",
+                "font-weight": "600",
+                "font-size": "13px",
                 "margin-left":"-2px",
-                "filter": "blur(0.4px)",
+                "color":"transparent",
+                "text-shadow":"0 0 1px rgba(0, 0, 0, 1)",
                 "cursor":"pointer",
+                "margin-bottom":"0",
+                "margin-top":"0",
+                "line-height": "1.2",
                 ":focus":{
                   "outline":"0 !important"
                 },
-                "padding":"12px 10px 12px 10px"
+                "padding":"10px"
               },
               "selectIcon":{
                 "fill":"black",
@@ -130,7 +140,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
               }
             },
             "googleFonts": [
-              "Bungee"
+              "Roboto"
             ]
           },
           "cart":{"contents":{"button":true},
@@ -146,7 +156,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
             "styles":{
               "toggle":{
                 "background-color": "transparent",
-                "color": "#000"
+                "color": "#000",
+                ":hover":{
+                  "background-color": "transparent",
+                  "color": "#000000ab",
+                  "iconPath":{
+                    "fill": "#000000ab",
+                  }
+                }
               },
               "iconPath":{
                 "fill": "#000"
