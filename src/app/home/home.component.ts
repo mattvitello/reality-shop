@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 declare var ShopifyBuy: any;
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit(): void {
-    var client = ShopifyBuy.buildClient({
+    const client = ShopifyBuy.buildClient({
       domain: 'greasemerch.myshopify.com',
       storefrontAccessToken: '270d86d30fc3da6e01619d075834f350'
     });
