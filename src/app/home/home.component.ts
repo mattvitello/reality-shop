@@ -7,18 +7,17 @@ declare var ShopifyBuy: any;
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
 
   shopItems: any[] = [
-    {src: "/assets/shirt1.jpg", shopifyId: 4313375277113, divId: 'shirt1', name: 'Reality Shirt', price: '$25'},
-    {src: "/assets/shirt2.jpg", shopifyId: 2232962875449, divId: 'shirt2', name: 'Reality Hoodie', price: '$45'},
-    {src: "/assets/shirt3.jpg", shopifyId: 2232965005369, divId: 'shirt3', name: 'Cool Pants', price: '$45'},
-    {src: "/assets/shirt4.jpg", shopifyId: 4313375277113, divId: 'shirt4', name: 'My Poster', price: '$15'},
-    {src: "/assets/shirt5.jpg", shopifyId: 2232965005369, divId: 'shirt5', name: 'Bundle Test One', price: '$100'},
-    {src: "/assets/shirt6.jpg", shopifyId: 2232962875449, divId: 'shirt6', name: 'Bundle Test Two', price: '$130'}
+    {src: "https://cdn.shopify.com/s/files/1/0004/6166/8409/files/sometimesreality-tee.png?v=1606866914", shopifyId: 5938636128414, divId: 'reality-shirt', name: '"Reality" T-Shirt', price: '$28', sizeGuideImg: 'https://cdn.shopify.com/s/files/1/0004/6166/8409/files/shirt-size.jpg?v=1607090083'},
+    {src: "https://cdn.shopify.com/s/files/1/0004/6166/8409/files/sometimesreality-hoodie.png?v=1606866915", shopifyId: 5938652020894, divId: 'reality-hoodie', name: '"Reality" Hoodie', price: '$50', sizeGuideImg: 'https://cdn.shopify.com/s/files/1/0004/6166/8409/files/hoodie-size.jpg?v=1607090083'},
+    {src: "https://cdn.shopify.com/s/files/1/0004/6166/8409/files/sometimesreality-dickiespants.png?v=1606866914", shopifyId: 5938796495006, divId: 'reality-pants', name: '"Reality" Pants', price: '$60', sizeGuideImg: 'https://cdn.shopify.com/s/files/1/0004/6166/8409/files/pants-size.jpg?v=1607090083'},
+    {src: "https://cdn.shopify.com/s/files/1/0004/6166/8409/files/sometimesreality-poster2.png?v=1607091940", shopifyId: 5938778603678, divId: 'reality-poster', name: '8"x10" PRINT ', price: '$10', sizeGuideImg: ''}
   ];
   shopifyUI: any;
-  userHasClicked: boolean = false;
+  showSizeChartModal: boolean;
+  currentSizeChart: string;
 
   constructor() { }
 
@@ -28,29 +27,57 @@ export class HomeComponent implements OnInit, AfterViewInit {
       storefrontAccessToken: '270d86d30fc3da6e01619d075834f350'
     });
     this.shopifyUI = ShopifyBuy.UI.init(client);
-  }
+    
+    const mainVid: any = document.getElementById("fallingVideo");
+    mainVid.onloadedmetadata = () => {    
+      mainVid.muted = true;
+      this.shopItems.forEach(item => {
+        this.InitializeShopifyItem(item.shopifyId, item.divId);
+      });
+    };
 
-  ngAfterViewInit(): void {
-    this.shopItems.forEach(item => {
-      this.InitializeShopifyItem(item.shopifyId, item.divId);
-    });
-  }
+    mainVid.onloadeddata = () => {
+        mainVid.muted = true;
+        mainVid.play();
+    }
+}
 
   showShop() {
-    this.userHasClicked = true;
-
     const siteWrapper = document.getElementById('shop');
     siteWrapper.classList.remove('shop-base');
 
     const shopContent = document.getElementById('shopContent');
     shopContent.classList.add('fade-in');
 
+
+    this.showCart();
+  }
+
+  showCart() {
     const cartBtn = document.getElementsByClassName('shopify-buy-frame--toggle')[0];
-    cartBtn.classList.add("show-cart-btn");
+    if (cartBtn) {
+      cartBtn.classList.add("show-cart-btn");
+    } else {
+      setTimeout( () => {this.showCart()}, 500)
+    }
+  }
+
+  openSizeChartModal(imgSrc) {
+    this.currentSizeChart = imgSrc;
+    this.showSizeChartModal = true;
+  }
+
+  hideSizeChartModal() {
+    this.showSizeChartModal = false;
   }
 
   InitializeShopifyItem(shopId, divId): void {
     if(shopId != "soldout"){
+      let addToCartWidth = 'calc(100% - 110px)';
+      if (divId === 'reality-poster') {
+        addToCartWidth = '100%';
+      }
+
       this.shopifyUI.createComponent('product', {
           id: shopId,
           node: document.getElementById(divId),
@@ -64,22 +91,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
             "styles":{
               "product":{"text-align":"center"},
               "button": {
-                "background": "#99c5d4de",
-                "border": "1px solid #777e80de",
+                "background": "#cfd890",
+                "border": "1px solid #929487",
                 "font-family": "\"Roboto\", sans-serif",
                 "color":"#000",
                 "font-weight": "600",
                 "font-size": "13px",
-                ":hover": {"background-color": "#a4d1e0"},
+                ":hover": {"background-color": "#d5de9b"},
                 ":focus": {
-                  "background-color": "#99c5d4",
+                  "background-color": "#cfd890",
                   "outline": "0 !important"
                 },
-                "padding": "10px 50px",
+                "padding": "10px 29px",
                 "position":"absolute",
                 "top": "0",
                 "right":"0",
-                "width":"70%",
+                "width": addToCartWidth,
                 "text-transform": "uppercase",
                 "margin-bottom":"0",
                 "margin-top":"0"
@@ -99,7 +126,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             "styles":{
               "option":{
                 "cursor":"pointer",
-                "width":"27%",
+                "width":"100px",
                 ":focus":{
                   "outline":"0 !important"
                 }
@@ -119,12 +146,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
                 "font-weight": "600",
                 "font-size": "13px",
                 "margin-left":"-2px",
-                "color":"transparent",
-                "text-shadow":"0 0 1px rgba(0, 0, 0, 1)",
+                "color":"#000",
                 "cursor":"pointer",
                 "margin-bottom":"0",
                 "margin-top":"0",
                 "line-height": "1.2",
+                "text-transform": "uppercase",
                 ":focus":{
                   "outline":"0 !important"
                 },
@@ -182,5 +209,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         });
     }
   }
+
 
 }

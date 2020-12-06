@@ -2,8 +2,8 @@
 
 @font-face {
     font-family: 'LEDLIGHT';
-    src: url('assets/fonts/ledlight.woff') format('woff'),
-         url('assets/fonts/ledlight.ttf') format('truetype');
+    src: url('https://cdn.shopify.com/s/files/1/0004/6166/8409/files/ledlight.woff?v=1606870365') format('woff'),
+         url('https://cdn.shopify.com/s/files/1/0004/6166/8409/files/ledlight.ttf?v=1606870365') format('truetype');
 }
 
 :root {
@@ -12,7 +12,7 @@
 
 
 body {
-    background-color: #dcd5ce;
+    background-color: #dad9da;
     font-family: 'LEDLIGHT', arial;
     /*background: -webkit-linear-gradient(151deg, #a59d95 25%, #bfb9b2 57%, #bbb3aa 65%, #cac4bd 75%);*/
 }

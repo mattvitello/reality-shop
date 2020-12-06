@@ -1,9 +1,12 @@
 <div id="shop" class="shop-base">
     <a class="loading-screen" (click)="showShop()">
+        <video id="bgVideo" autoplay loop [muted]="true" playsinline preload="auto">
+            <source src="https://cdn.shopify.com/s/files/1/0004/6166/8409/files/falling.mp4?v=1607221863" type="video/mp4">
+        </video>
         <div class="panel container-fluid vh-100">
             <div class="loading-wrapper">
-                <video id="loadingVideo" [muted]="true" autoplay loop playsinline>
-                    <source src="/assets/reality.mp4" type="video/mp4">
+                <video id="fallingVideo" autoplay loop [muted]="true" playsinline preload="auto" poster="/assets/falling.jpg">
+                    <source src="https://cdn.shopify.com/s/files/1/0004/6166/8409/files/falling.mp4?v=1607221863" type="video/mp4">
                 </video>
                 <span id="loadingText">ENTER SITE</span>
             </div>
@@ -11,17 +14,36 @@
     </a>
 
     <div id="shopContent" class="container-fluid" style="padding-right: 25px;padding-left: 25px;">
+        <span class="shipping-text">Please allow a little more time for shipping due to corona literally delaying the entire world</span>
+        <span class="discount-text discount-text-2">Spend $90 get 10% off</span>
         <div class="row shop-items">
             <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of shopItems">
                 <div class="item-wrapper">
                     <img src="{{item.src}}" />
                     <div class="item-details">
-                        <p class="item-name">{{item.name}}</p>
+                        <p class="item-name">{{item.name}} <span *ngIf="item.sizeGuideImg" class="size-chart" (click)="openSizeChartModal(item.sizeGuideImg)">Size Chart</span></p>
                         <p class="item-price">{{item.price}}</p>
                     </div>
                     <div id="{{item.divId}}"></div>
                 </div>
             </div>
+            <div class="col-12 contact-text-wrapper">
+                <a class="contact-text" href="mailto:drewphillips@brandmarinade.com">CONTACT</a>
+            </div>
         </div>
     </div>
+    
+    <div [style.display]="showSizeChartModal ? 'block' : 'none'" class="modal" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog centered-content">
+          <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideSizeChartModal()" style="position: absolute;right: 7px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              <img src="{{currentSizeChart}}" id="imagepreview" style="width: 100%;" >
+            </div>
+          </div>
+        </div>
+    </div>
+        
 </div>
