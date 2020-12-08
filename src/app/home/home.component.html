@@ -1,13 +1,9 @@
 <div id="shop" class="shop-base">
-    <a class="loading-screen" (click)="showShop()">
-        <video id="bgVideo" autoplay loop [muted]="true" playsinline preload="auto">
-            <source src="https://cdn.shopify.com/s/files/1/0004/6166/8409/files/falling.mp4?v=1607221863" type="video/mp4">
-        </video>
+    <a id="enterSection" class="loading-screen" (click)="showShop()">
         <div class="panel container-fluid vh-100">
             <div class="loading-wrapper">
-                <video id="fallingVideo" autoplay loop [muted]="true" playsinline preload="auto" poster="/assets/falling.jpg">
-                    <source src="https://cdn.shopify.com/s/files/1/0004/6166/8409/files/falling.mp4?v=1607221863" type="video/mp4">
-                </video>
+                <div id="fallingVideoWrapper">
+                </div>
                 <span id="loadingText">ENTER SITE</span>
             </div>
         </div>

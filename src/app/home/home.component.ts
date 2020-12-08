@@ -7,7 +7,7 @@ declare var ShopifyBuy: any;
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   shopItems: any[] = [
     {src: "https://cdn.shopify.com/s/files/1/0004/6166/8409/files/sometimesreality-tee.png?v=1606866914", shopifyId: 5938636128414, divId: 'reality-shirt', name: '"Reality" T-Shirt', price: '$28', sizeGuideImg: 'https://cdn.shopify.com/s/files/1/0004/6166/8409/files/shirt-size.jpg?v=1607090083'},
@@ -16,31 +16,54 @@ export class HomeComponent implements OnInit {
     {src: "https://cdn.shopify.com/s/files/1/0004/6166/8409/files/sometimesreality-poster2.png?v=1607091940", shopifyId: 5938778603678, divId: 'reality-poster', name: '8"x10" PRINT ', price: '$10', sizeGuideImg: ''}
   ];
   shopifyUI: any;
+  fallingVideo: any;
+  bgVideo: any;
   showSizeChartModal: boolean;
   currentSizeChart: string;
 
   constructor() { }
 
   ngOnInit(): void {
+
+    this.fallingVideo = document.createElement("video");
+    this.fallingVideo["data-videoid"] = "JYpUXXD4xgc";
+    this.fallingVideo.setAttribute('loop', 'loop');
+    this.fallingVideo.setAttribute('muted', 'muted');
+    this.fallingVideo.setAttribute('playsinline', 'playsinline');
+    var sourceElem = document.createElement("source");
+    sourceElem.src = "https://cdn.shopify.com/s/files/1/0004/6166/8409/files/falling.mp4?v=1607221863&videoid=JYpUXXD4xgc";
+    sourceElem.type = "video/mp4";
+    this.fallingVideo.appendChild(sourceElem);
+
+    this.bgVideo = this.fallingVideo.cloneNode(true); //This makes a copy of the element, but makes sure it's not treated as the same element. This means you can add video1 AND this _different_ element to the document. However, unfortunately, everything still needs to get loaded again. I think this is the easiest way to copy an element over, though.
+    this.bgVideo.id = "bgVideo";
+    this.bgVideo.setAttribute('playsinline', 'playsinline');
+    this.fallingVideo.id = "fallingVideo";
+
     const client = ShopifyBuy.buildClient({
       domain: 'greasemerch.myshopify.com',
       storefrontAccessToken: '270d86d30fc3da6e01619d075834f350'
     });
     this.shopifyUI = ShopifyBuy.UI.init(client);
     
-    const mainVid: any = document.getElementById("fallingVideo");
-    mainVid.onloadedmetadata = () => {    
-      mainVid.muted = true;
+    this.fallingVideo.onloadedmetadata = () => {
       this.shopItems.forEach(item => {
         this.InitializeShopifyItem(item.shopifyId, item.divId);
       });
     };
+  }
 
-    mainVid.onloadeddata = () => {
-        mainVid.muted = true;
-        mainVid.play();
-    }
-}
+  ngAfterViewInit(): void {
+    this.fallingVideo.setAttribute('poster', '/assets/falling.jpg');
+    var enterElem = document.getElementById('enterSection');
+    var vidWrapperElem = document.getElementById('fallingVideoWrapper');
+    vidWrapperElem.append(this.fallingVideo);
+    enterElem.prepend(this.bgVideo);
+    this.fallingVideo.muted = true;
+    this.bgVideo.muted = true;
+    this.fallingVideo.play();
+    this.bgVideo.play();
+  }
 
   showShop() {
     const siteWrapper = document.getElementById('shop');
